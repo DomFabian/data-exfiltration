@@ -2,12 +2,16 @@
 An encoding and a decoding tool for use in storing data in PNG files.
 
 ## File Index
+* `makefile` is the makefile. Simple run `make` and you should be good to go.
+
 * `encoder.c` contains the `main()` for the encoding program. The `encoder` takes in two arguments: the name of the PNG file that will hide the payload, and the name of the payload itself. It creates a file called `output.png` that contains the hidden payload. 
 It's usage is
+
 ```./encoder <input PNG filepath> <payload filepath>```.
 
 * `decoder.c` contains the `main()` for the decoding program. The `decoder` takes in two arguments: the name of the PNG file that is hiding a payload, and the name of the file that the payload will be dumped into. It creates a file with the name given that will contain the hidden payload. 
 It's usage is
+
 ```./decoder <input PNG filepath> <output payload filepath>```
 
 * `png.h` contains my own custom interface to the PNG file format. There are many like it, but this one is mine.
