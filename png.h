@@ -42,14 +42,14 @@ uint32_t crc32(const char *buf, size_t len) {
     }
  
     // calculate the CRC from the table values
-	uint32_t crc = -1;
-	const char *q = buf + len;
+    uint32_t crc = -1;
+    const char *q = buf + len;
     uint8_t octet;
-	for (const char *p = buf; p < q; p++) {
-		octet = *p;
-		crc = (crc >> 8) ^ table[(crc & 0xff) ^ octet];
-	}
-	return ~crc;
+    for (const char *p = buf; p < q; p++) {
+        octet = *p;
+        crc = (crc >> 8) ^ table[(crc & 0xff) ^ octet];
+    }
+    return ~crc;
 }
 
 /* convert little-endian 4-byte blocks to big-endian and vice-versa */
