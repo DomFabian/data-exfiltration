@@ -20,26 +20,26 @@ struct png_chunk_header {
 /* calculate the CRC32 of the data in buf */
 uint32_t crc32(const char *buf, size_t len) {
     // static members to maintain CRC table
-	static uint32_t table[256];
-	static int have_table = 0;
+    static uint32_t table[256];
+    static int have_table = 0;
  
     // generate table if we do not already have it
-	if (!have_table) {
+    if (!have_table) {
         uint32_t rem;
-		for (int i = 0; i < 256; i++) {
-			rem = i;
-			for (int j = 0; j < 8; j++) {
-				if (rem & 1) {
-					rem >>= 1;
-					rem ^= 0xedb88320;
-				}
+        for (int i = 0; i < 256; i++) {
+            rem = i;
+            for (int j = 0; j < 8; j++) {
+                if (rem & 1) {
+                    rem >>= 1;
+                    rem ^= 0xedb88320;
+                }
                 else rem >>= 1;
-			}
-			table[i] = rem;
-		}
+            }
+            table[i] = rem;
+        }
         // mark table as generated
-		have_table = 1;
-	}
+        have_table = 1;
+    }
  
     // calculate the CRC from the table values
 	uint32_t crc = -1;
