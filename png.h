@@ -13,7 +13,7 @@
 struct png_chunk_header {
     uint32_t length; // 4 bytes: length of the data section
     char type[4];    // 4 bytes: name of the chunk type
-    void *data;      // 4 bytes: pointer to buffer of size length
+    void *data;      // 8 bytes: pointer to buffer of size length
     uint32_t crc;    // 4 bytes: CRC-32 redundancy checksum in network byte order
 };
 
@@ -31,7 +31,7 @@ uint32_t crc32(const char *buf, size_t len) {
             for (int j = 0; j < 8; j++) {
                 if (rem & 1) {
                     rem >>= 1;
-                    rem ^= 0xedb88320;
+                    rem ^= 0xEDB88320;
                 }
                 else rem >>= 1;
             }
@@ -43,11 +43,8 @@ uint32_t crc32(const char *buf, size_t len) {
  
     // calculate the CRC from the table values
     uint32_t crc = -1;
-    const char *q = buf + len;
-    uint8_t octet;
-    for (const char *p = buf; p < q; p++) {
-        octet = *p;
-        crc = (crc >> 8) ^ table[(crc & 0xff) ^ octet];
+    for (const char *p = buf; p < buf + len; p++) {
+        crc = (crc >> 8) ^ table[(crc & 0xFF) ^ *p];
     }
     return ~crc;
 }
